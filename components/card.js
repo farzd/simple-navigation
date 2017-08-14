@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import Modal1 from './modal1';
 
 export default class Card extends React.Component {
   render() {
-    const { name, color, navigate, goTo, active } = this.props;
+    const { name, color, navigate, goTo, active, openModal } = this.props;
     if (active) {
       console.log(`card ${name} is inView`);
     }
@@ -12,6 +13,9 @@ export default class Card extends React.Component {
         <Text style={styles.text}>
           Card {name}
         </Text>
+        {name === 'Feed'
+          ? <Button title={'open Modal 1'} onPress={() => openModal(true, <Modal1 />)} />
+          : null}
         <Button title={'goTo ' + this.props.goTo} onPress={() => navigate(goTo)} />
       </View>
     );

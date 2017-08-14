@@ -1,6 +1,6 @@
 import React from 'react';
-import Navigator from './Navigator';
-import Card from './card';
+import Navigator from './navigator/navigator';
+import Card from './components/card';
 
 const navigatorViews = {
   Settings: {
@@ -24,8 +24,24 @@ const routeConfig = {
   initialRouteName: 'Settings',
 };
 
+const headerStyles = {
+  tintColor: '#E87EAC',
+  statusBar: {
+    style: 'light-content',
+  },
+  title: {
+    tintColor: '#fff',
+  },
+};
+
 export default class App extends React.Component {
   render() {
-    return <Navigator navigatorViews={navigatorViews} routeConfig={routeConfig} />;
+    return (
+      <Navigator
+        navigatorViews={navigatorViews}
+        routeConfig={routeConfig}
+        headerStyles={headerStyles}
+      />
+    );
   }
 }
