@@ -44,7 +44,7 @@ export default class App extends React.Component {
   }
 }
 ```
--To add a Modal,
+- To add a Modal,
 ```
 //Inside your Component i.e Settings/Feed/Matches 
 
