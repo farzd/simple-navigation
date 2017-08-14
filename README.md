@@ -1,5 +1,7 @@
 # simple-navigation
 - Simple, Stackless navigation for react-native
+- Uses the official [react-native-navbar](https://github.com/react-native-community/react-native-navbar), also contains custom Header component, simply remove react-native-bar reference and import the Header component
+- Ability to push/view Modals
 - Expo : https://exp.host/@farzd/simple-navigation
 ```
 import Navigator from './Navigator';
@@ -23,39 +25,43 @@ const routeConfig = {
   initialRouteName: 'Settings'
 }
 
+//API for styles https://github.com/react-native-community/react-native-navbar
+const headerStyles = {
+  tintColor: '#E87EAC',
+  statusBar: {
+    style: 'light-content',
+  },
+  title: {
+    tintColor: '#fff',
+  },
+};
+
 export default class App extends React.Component {
   render() {
     return (
-      <Navigator navigatorViews={navigatorViews} routeConfig={routeConfig}/>
+      <Navigator navigatorViews={navigatorViews} routeConfig={routeConfig} headerStyles={headerStyles} />
     );
   }
 }
 ```
+-To add a Modal,
+```
+//Inside your Component i.e Settings/Feed/Matches 
 
-- You can also use the official [react-native-navbar](https://github.com/react-native-community/react-native-navbar) instead of the custom Header that comes with simple-navigation
-- See this [branch](https://github.com/farzd/simple-navigation/tree/react-native-navbar) for a working example
+import Modal1 from './modal1';
+
+render() {
+ const { openModal } = this.props;
+  return (
+    <Button title={'open Modal 1'} onPress={() => openModal(true, <Modal1 />)} />
+  );
+}
+
+/**
+openModal prop is automatically added to every component inside the Navigator,
+each Modal automatically receives the same prop, so you can call openModal(false) to close it
+**/
 ```
-import NavigationBar from 'react-native-navbar';
-  render() {
-    return (
-      const { currentView } = this.state;
-      const currentRoute = this.getRouteArray[currentView];
-      const nextRoute = this.getRouteArray[currentView + 1];
-      const previousRoute = this.getRouteArray[currentView - 1];
-      return (
-        <NavigationBar
-          title={{ title: currentRoute }}
-          rightButton={{
-            title: nextRoute || '',
-            handler: () => (nextRoute ? this.navigate(nextRoute) : null),
-          }}
-          leftButton={{
-            title: previousRoute || '',
-            handler: () => (previousRoute ? this.navigate(previousRoute) : null),
-          }}
-        />
-      )
-   }
-```
+
 
 ![simple-nav](https://user-images.githubusercontent.com/1423413/29241836-b6275d2e-7f79-11e7-9b25-1c40ef80581f.gif)
