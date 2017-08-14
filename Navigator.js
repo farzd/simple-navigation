@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions, Animated, Easing, Platform } from 'react-native';
-import Header from './Header';
+import NavigationBar from 'react-native-navbar';
 const { height: appHeight, width: appWidth } = Dimensions.get('window');
 
 export default class Navigator extends React.Component {
@@ -40,12 +40,22 @@ export default class Navigator extends React.Component {
     const navigatorWidth = {
       width: this.getContainerWidth(),
     };
+    const { currentView } = this.state;
+    const currentRoute = this.getRouteArray[currentView];
+    const nextRoute = this.getRouteArray[currentView + 1];
+    const previousRoute = this.getRouteArray[currentView - 1];
     return (
       <View style={styles.container}>
-        <Header
-          routeArray={this.getRouteArray}
-          currentView={this.state.currentView}
-          navigate={this.navigate}
+        <NavigationBar
+          title={{ title: currentRoute }}
+          rightButton={{
+            title: nextRoute || '',
+            handler: () => (nextRoute ? this.navigate(nextRoute) : null),
+          }}
+          leftButton={{
+            title: previousRoute || '',
+            handler: () => (previousRoute ? this.navigate(previousRoute) : null),
+          }}
         />
         <Animated.View
           style={[styles.navigator, navigatorWidth, { marginLeft: this.animateMargin }]}>
