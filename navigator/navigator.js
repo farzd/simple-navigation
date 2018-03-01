@@ -1,6 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Animated, Easing, Platform, Modal } from 'react-native';
+import { StyleSheet, View, Dimensions, Animated, Easing, Platform } from 'react-native';
 import NavigationBar from 'react-native-navbar';
+import { Constants } from 'expo';
+import Modal from './Modal';
+import NavBar from './NavBar';
 const { height: appHeight, width: appWidth } = Dimensions.get('window');
 
 export default class Navigator extends React.Component {
@@ -11,21 +14,36 @@ export default class Navigator extends React.Component {
     this.getRouteArray = Object.keys(this.navigatorViews);
     const startPosition = -appWidth * this.getRouteLocation(this.routeConfig.initialRouteName);
     this.animateMargin = new Animated.Value(startPosition);
-    this.navigate = this.navigate.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.modalComponent = null;
+
     this.state = {
       currentView: this.getRouteLocation(this.routeConfig.initialRouteName),
-      modalVisible: false,
+      modals: [],
     };
+
+    this.navigate = this.navigate.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
 
-  openModal(state, component) {
-    if (component) {
-      this.modalComponent = component;
-    }
+  openModal(modalContent) {
+    const newModal = (
+      <Modal
+        key={'modal' + this.state.modals.length}
+        zIndex={1 + this.state.modals.length}
+        closeModalAction={this.closeModal}
+        openModalAction={this.openModal}>
+        {modalContent}
+      </Modal>
+    );
+
     this.setState({
-      modalVisible: state,
+      modals: [newModal, ...this.state.modals],
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      modals: this.state.modals.filter((_, i) => i !== 0),
     });
   }
 
@@ -59,13 +77,15 @@ export default class Navigator extends React.Component {
     const previousRoute = this.getRouteArray[currentView - 1];
     return (
       <View style={styles.container}>
-        <Modal animationType={'slide'} visible={this.state.modalVisible}>
-          {this.modalComponent
-            ? React.cloneElement(this.modalComponent, {
-                openModal: this.openModal,
-              })
-            : null}
-        </Modal>
+        {this.state.modals.map(modal => {
+          return modal;
+        })}
+        {/* <NavBar
+          navigatorViews={this.navigatorViews}
+          routeArray={this.getRouteArray}
+          currentView={this.state.currentView}
+          navigate={this.navigate}
+        /> */}
         <NavigationBar
           {...headerStyles}
           title={{ title: currentRoute, ...headerStyles.title }}
@@ -102,13 +122,12 @@ export default class Navigator extends React.Component {
 }
 
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 const styles = StyleSheet.create({
   wrapper: {
     width: appWidth,
   },
   navigator: {
-    height: appHeight - (APPBAR_HEIGHT + STATUSBAR_HEIGHT),
+    height: appHeight - (APPBAR_HEIGHT + Constants.statusBarHeight),
     flexDirection: 'row',
   },
   container: {

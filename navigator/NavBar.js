@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Platform, Button } from 'react-native';
+import { Constants } from 'expo';
 
-export default class Header extends React.Component {
+export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.routeArray = this.props.routeArray;
@@ -14,24 +15,28 @@ export default class Header extends React.Component {
 
   getLeftButton(currentView) {
     const left = this.routeArray[currentView - 1];
-    return left
-      ? <Button
-          style={[styles.button, styles.buttonLeft]}
-          title={'< ' + left}
-          onPress={() => this.navigate(left)}
-        />
-      : <View style={styles.empty} />;
+    return left ? (
+      <Button
+        style={[styles.button, styles.buttonLeft]}
+        title={'< ' + left}
+        onPress={() => this.navigate(left)}
+      />
+    ) : (
+      <View style={styles.empty} />
+    );
   }
 
   getRightButton(currentView) {
     const right = this.routeArray[currentView + 1];
-    return right
-      ? <Button
-          style={[styles.button, styles.buttonLeft]}
-          title={right + ' >'}
-          onPress={() => this.navigate(right)}
-        />
-      : <View style={styles.empty} />;
+    return right ? (
+      <Button
+        style={[styles.button, styles.buttonLeft]}
+        title={right + ' >'}
+        onPress={() => this.navigate(right)}
+      />
+    ) : (
+      <View style={styles.empty} />
+    );
   }
 
   render() {
@@ -39,9 +44,7 @@ export default class Header extends React.Component {
     return (
       <View style={styles.container}>
         {this.getLeftButton(currentView)}
-        <Text style={styles.title}>
-          {this.getTitle(currentView)}
-        </Text>
+        <Text style={styles.title}>{this.getTitle(currentView)}</Text>
         {this.getRightButton(currentView)}
       </View>
     );
@@ -49,12 +52,11 @@ export default class Header extends React.Component {
 }
 
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 const styles = StyleSheet.create({
   container: {
-    paddingTop: STATUSBAR_HEIGHT,
-    height: STATUSBAR_HEIGHT + APPBAR_HEIGHT,
-    backgroundColor: Platform.OS === 'ios' ? '#F7F7F7' : '#FFF',
+    paddingTop: Constants.statusBarHeight,
+    height: Constants.statusBarHeight + APPBAR_HEIGHT,
+    backgroundColor: '#E87EAC',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
     alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
     fontSize: 17,
     fontWeight: '600',
-    color: 'rgba(0,0,0,.9)',
+    color: '#fff',
     textAlign: 'center',
     flexDirection: 'column',
   },

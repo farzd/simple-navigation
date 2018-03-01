@@ -1,6 +1,6 @@
 import React from 'react';
-import Navigator from './navigator/navigator';
-import Card from './components/card';
+import Navigator from './navigator/Navigator';
+import Card from './components/Card';
 
 const navigatorViews = {
   Settings: {
