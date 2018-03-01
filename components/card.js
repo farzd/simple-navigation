@@ -14,9 +14,13 @@ export default class Card extends React.Component {
           Card {name}
         </Text>
         {name === 'Feed'
-          ? <Button title={'open Modal 1'} onPress={() => openModal(true, <Modal1 />)} />
+          ? <Button
+              color="#fff"
+              title={'open Modal 1'}
+              onPress={() => openModal(true, <Modal1 />)}
+            />
           : null}
-        <Button title={'goTo ' + this.props.goTo} onPress={() => navigate(goTo)} />
+        <Button color="#fff" title={'goto ' + this.props.goTo} onPress={() => navigate(goTo)} />
       </View>
     );
   }
@@ -31,5 +35,8 @@ const styles = StyleSheet.create({
   text: {
     color: '#fff',
     fontSize: 30,
+  },
+  button: {
+    color: '#fff',
   },
 });

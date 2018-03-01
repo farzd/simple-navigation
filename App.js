@@ -7,21 +7,21 @@ const navigatorViews = {
     screen: <Card goTo={'Feed'} color={'#2980B9'} />,
   },
   Feed: {
-    screen: <Card goTo={'Matches'} color={'#3498DB'} />,
+    screen: <Card goTo={'Matches'} color={'#2980B9'} />,
   },
   Matches: {
-    screen: <Card goTo={'Feed'} color={'#E79700'} />,
+    screen: <Card goTo={'Feed'} color={'#2980B9'} />,
   },
   Etc1: {
-    screen: <Card goTo={'Etc2'} color={'#E74C3C'} />,
+    screen: <Card goTo={'Etc2'} color={'#2980B9'} />,
   },
   Etc2: {
-    screen: <Card goTo={'Etc1'} color={'#2C3E50'} />,
+    screen: <Card goTo={'Etc1'} color={'#2980B9'} />,
   },
 };
 
 const routeConfig = {
-  initialRouteName: 'Settings',
+  initialRouteName: 'Feed',
 };
 
 const headerStyles = {

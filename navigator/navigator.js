@@ -83,13 +83,17 @@ export default class Navigator extends React.Component {
         <Animated.View
           style={[styles.navigator, navigatorWidth, { marginLeft: this.animateMargin }]}>
           {this.getRouteArray.map((item, i) => {
-            return React.cloneElement(this.navigatorViews[item].screen, {
-              key: i,
-              name: item,
-              navigate: this.navigate,
-              active: this.state.currentView === i,
-              openModal: this.openModal,
-            });
+            return (
+              <View key={item} style={styles.wrapper}>
+                {React.cloneElement(this.navigatorViews[item].screen, {
+                  key: i,
+                  name: item,
+                  navigate: this.navigate,
+                  active: this.state.currentView === i,
+                  openModal: this.openModal,
+                })}
+              </View>
+            );
           })}
         </Animated.View>
       </View>
@@ -100,12 +104,15 @@ export default class Navigator extends React.Component {
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 const styles = StyleSheet.create({
+  wrapper: {
+    width: appWidth,
+  },
   navigator: {
     height: appHeight - (APPBAR_HEIGHT + STATUSBAR_HEIGHT),
-    backgroundColor: '#fff',
     flexDirection: 'row',
   },
   container: {
+    flex: 1,
     overflow: 'hidden',
   },
 });
