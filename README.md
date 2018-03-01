@@ -48,20 +48,26 @@ export default class App extends React.Component {
 ```
 //Inside your Component i.e Settings/Feed/Matches 
 
-import Modal1 from './modal1';
+const ModalContent = () => {
+  return (
+    <View>
+      <Text>Modal Content</Text>
+    </View>
+  );
+};
 
 render() {
  const { openModal } = this.props;
   return (
-    <Button title={'open Modal 1'} onPress={() => openModal(true, <Modal1 />)} />
+    <Button title={'open Modal 1'} onPress={() => openModal(<ModalContent />)} />
   );
 }
 
-/**
-openModal prop is automatically added to every component inside the Navigator,
-each Modal automatically receives the same prop, so you can call openModal(false) to close it
-**/
 ```
+ openModal prop is automatically added to every component inside the Navigator,
+ each Modal automatically receives the same props, so you can call openModal/closeModal from within the Modal.
+ closeModal will remove the most recent modal from the stack.
+```https://github.com/farzd/simple-navigation/blob/master/navigator/Modal.js```
 
 
 ![simple-nav](https://user-images.githubusercontent.com/1423413/29241836-b6275d2e-7f79-11e7-9b25-1c40ef80581f.gif)
