@@ -1,8 +1,9 @@
 # simple-navigation
 - Simple, Stackless navigation for react-native
-- Uses the official [react-native-navbar](https://github.com/react-native-community/react-native-navbar), also contains custom Header component, simply remove react-native-bar reference and import the Header component
-- Ability to push/view Modals
-- Expo : https://exp.host/@farzd/simple-navigation
+- Uses the official [react-native-navbar](https://github.com/react-native-community/react-native-navbar), also contains custom Header component
+- Ability to push/view Modals . 
+- Expo : https://exp.host/@farzd/simple-navigation . <br />
+  ![expo](https://user-images.githubusercontent.com/1423413/36921282-a7d7f522-1e5b-11e8-8501-1a648df0bd00.png)
 ```
 import Navigator from './Navigator';
 import Settings from './SettingsComponent';
