@@ -101,7 +101,11 @@ export default class Navigator extends React.Component {
           }}
         />
         <Animated.View
-          style={[styles.navigator, navigatorWidth, { marginLeft: this.animateMargin }]}>
+          style={[
+            styles.navigator,
+            navigatorWidth,
+            { transform: [{ translateX: this.animateMargin }] },
+          ]}>
           {this.getRouteArray.map((item, i) => {
             return (
               <View key={item} style={styles.wrapper}>
